@@ -1,0 +1,120 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access JSON Data</title>
+</head>
+<body>
+    <input type="text" name="Min" id="min" placeholder="Enter Minimum Value">
+    <button>submit</button>
+    <br>
+    <input type="text" name="Max" id="max" placeholder="Enter Maximum Value">
+    <button>submit</button>
+    
+    
+Enter your name: <input type="text" id="fname" onkeyup="myFunction()">
+<p>My name is: <span id="demo2"></span></p>  
+
+<table id="table" border='1'></table>
+
+    <script>
+        //filter data
+function myFunction() {
+  var x = document.getElementById("fname").value;
+  document.getElementById("demo2").innerHTML = x;
+}
+
+        //access json through XMLHTTPrequest
+        // Here we are accessing JSON Data through XMLHttpRequest
+            function readFile(cb) {
+                var value = new XMLHttpRequest();
+                value.onreadystatechange = function(){
+                    if (value.readyState == 4) {
+                        cb(this.responseText);
+                    } else {
+                        cb(null);
+                    }
+                };
+                value.open("GET", "test_data.json", true);
+                value.send();
+            }
+            function allData() {
+                readFile(function (data) {
+                    var employee = JSON.parse(data);
+                    document.getElementById('table').innerHTML = ` <tr><th>Id</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Gender</th><th>Department</th><th>Salary</th></tr>`;
+                    for (let i = 0; i < employee.length; i++) {
+                        var myTable = document.getElementById("table");
+                        var tbl = document.createElement("tr");
+                        tbl.innerHTML = "<td>" + employee[i].id + "</td><td>" + employee[i].first_name + "</td><td>" + employee[i].last_name + "</td><td>" + employee[i].email + "</td><td>" + employee[i].gender + "</td><td>" + employee[i].department + "</td><td>" + employee[i].salary + "</td>";
+                        myTable.appendChild(tbl);
+                    }
+                });
+            }
+            allData();
+ 
+    </script>
+</body>
+</html>
+1. regular function
+2. direct funtion // 
+3. arrow funtion - 4
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Data</title>
+
+</head>
+<body>
+    <div class="container">
+            <p id="hell"></p>
+            <h1>Filter Data</h1>
+            <label for="first"></label>
+            <input type="text" placeholder="More than" id="first">
+            <label for="second"></label>
+            <input type="text" placeholder="Less than" id="second">
+
+            <input type="submit" id="btn">
+            <br><br>
+            
+            <label for="third"></label>
+            <input type="text" placeholder="Gender" id="third">
+
+            <input type="submit" id="btn1">
+        <br><br>
+            <label for="fourth"></label>
+            <input type="text" placeholder="Department" id="fourth">
+
+            <input type="submit" id="btn2">
+        <br><br>
+        <label for="fifth"></label>
+            <input type="text" placeholder="Department&Gender" id="fifth">
+
+            <input type="submit" id="btn3">
+        <br><br>
+        <table border="1" cellspacing="0" id="table">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Department</th>
+                <th>Salary</th>
+            </tr>
+            
+        </table>
+    </div>
+
+    <script src="filtered.js"></script>
+    <script>allData();</script>
+
+</body>
+</html>
